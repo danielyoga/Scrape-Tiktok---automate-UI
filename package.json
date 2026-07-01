@@ -1,0 +1,20 @@
+{
+  "name": "tiktok-ui-automation",
+  "version": "0.1.0",
+  "description": "TikTok UI automation: cookie-session login + UI scraping to Google Sheets",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "scrape": "tsx src/scenarios/scrape-video.ts",
+    "scrape-range": "tsx src/scenarios/scrape-range.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.0",
+    "playwright": "^1.61.1",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "googleapis": "^173.0.0"
+  }
+}

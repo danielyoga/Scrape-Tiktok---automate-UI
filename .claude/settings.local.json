@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm -v)",
+      "Bash(npm init *)",
+      "Bash(npm pkg *)",
+      "Bash(npm install *)",
+      "Bash(ls -la ~/Library/Caches/ms-playwright/ 2>&1)",
+      "Read(//Users/agung/Library/Caches/ms-playwright/**)"
+    ]
+  }
+}
