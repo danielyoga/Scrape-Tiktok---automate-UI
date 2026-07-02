@@ -6,3 +6,11 @@ export async function promptEnter(message: string): Promise<void> {
   await rl.question(`${message} (press Enter to continue) `);
   rl.close();
 }
+
+/** Same as promptEnter, but typing "skip" (case-insensitive) returns true so the caller can bail. */
+export async function promptEnterOrSkip(message: string): Promise<boolean> {
+  const rl = readline.createInterface({ input: stdin, output: stdout });
+  const answer = await rl.question(`${message} (press Enter to continue, or type "skip" to skip this) `);
+  rl.close();
+  return answer.trim().toLowerCase() === "skip";
+}

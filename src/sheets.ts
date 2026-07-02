@@ -74,29 +74,25 @@ export interface RowMetrics {
   likes: number | null;
   comments: number | null;
   shared: number | null;
-  reposted: number | null;
   saved: number | null;
 }
 
-/** Writes Views/Likes/Comments/Shared/Reposted/Saved (columns D-I) for many rows in a single API call. */
+/** Writes Views/Likes/Comments/Shared (columns D-G) and Saved (column I) for many rows in a single API call. Column H (Reposted) is never scraped/exposed by TikTok, so it's left untouched. */
 export async function batchUpdateRowMetrics(rowMetrics: Map<number, RowMetrics>): Promise<void> {
   if (rowMetrics.size === 0) return;
   const sheets = await getSheetsClient();
   const title = await getSheetTitle();
 
-  const data = [...rowMetrics.entries()].map(([row, metrics]) => ({
-    range: `${title}!D${row}:I${row}`,
-    values: [
-      [
-        metrics.views ?? "",
-        metrics.likes ?? "",
-        metrics.comments ?? "",
-        metrics.shared ?? "",
-        metrics.reposted ?? "",
-        metrics.saved ?? "",
-      ],
-    ],
-  }));
+  const data = [...rowMetrics.entries()].flatMap(([row, metrics]) => [
+    {
+      range: `${title}!D${row}:G${row}`,
+      values: [[metrics.views ?? "", metrics.likes ?? "", metrics.comments ?? "", metrics.shared ?? ""]],
+    },
+    {
+      range: `${title}!I${row}`,
+      values: [[metrics.saved ?? ""]],
+    },
+  ]);
 
   await withRetry(() =>
     sheets.spreadsheets.values.batchUpdate({

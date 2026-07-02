@@ -10,7 +10,7 @@ if (!url) {
   process.exit(1);
 }
 
-const browser = await chromium.launch({ headless: false });
+const browser = await chromium.launch({ headless: false, args: ["--mute-audio"] });
 const context = await browser.newContext(
   existsSync(SESSION_PATH) ? { storageState: SESSION_PATH } : {},
 );

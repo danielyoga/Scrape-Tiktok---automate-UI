@@ -1,0 +1,21 @@
+2026-07-02 10:37:12 - code_review_mcp - INFO - Registered capability: sddl_check (SDDL database query analysis)
+2026-07-02 10:37:12 - code_review_mcp - INFO - Registered tools for capability: sddl_check
+2026-07-02 10:37:12 - code_review_mcp - INFO - Starting Code Review MCP Server...
+2026-07-02 10:37:12 - code_review_mcp - INFO - ARC_ENV=live  base_url=https://arc.shopee.io
+2026-07-02 10:37:12 - code_review_mcp - INFO - Local log files will be saved to ./log/ directory
+2026-07-02 10:37:12 - code_review_mcp - INFO - SQLite schema initialized at /Users/LDNID0469/.skynet-review/review.db
+2026-07-02 10:37:12 - code_review_mcp - INFO - SQLite schema ready at /Users/LDNID0469/.skynet-review/review.db
+2026-07-02 10:48:59 - code_review_mcp - INFO - Registered capability: sddl_check (SDDL database query analysis)
+2026-07-02 10:48:59 - code_review_mcp - INFO - Registered tools for capability: sddl_check
+2026-07-02 10:48:59 - code_review_mcp - INFO - Starting Code Review MCP Server...
+2026-07-02 10:48:59 - code_review_mcp - INFO - ARC_ENV=live  base_url=https://arc.shopee.io
+2026-07-02 10:48:59 - code_review_mcp - INFO - Local log files will be saved to ./log/ directory
+2026-07-02 10:48:59 - code_review_mcp - INFO - SQLite schema initialized at /Users/LDNID0469/.skynet-review/review.db
+2026-07-02 10:48:59 - code_review_mcp - INFO - SQLite schema ready at /Users/LDNID0469/.skynet-review/review.db
+2026-07-02 11:13:59 - code_review_mcp - INFO - Registered capability: sddl_check (SDDL database query analysis)
+2026-07-02 11:13:59 - code_review_mcp - INFO - Registered tools for capability: sddl_check
+2026-07-02 11:13:59 - code_review_mcp - INFO - Starting Code Review MCP Server...
+2026-07-02 11:13:59 - code_review_mcp - INFO - ARC_ENV=live  base_url=https://arc.shopee.io
+2026-07-02 11:13:59 - code_review_mcp - INFO - Local log files will be saved to ./log/ directory
+2026-07-02 11:13:59 - code_review_mcp - INFO - SQLite schema initialized at /Users/LDNID0469/.skynet-review/review.db
+2026-07-02 11:13:59 - code_review_mcp - INFO - SQLite schema ready at /Users/LDNID0469/.skynet-review/review.db

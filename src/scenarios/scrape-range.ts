@@ -7,7 +7,7 @@ import { SESSION_PATH, SCRAPE_RANGE_START_ROW, SCRAPE_RANGE_END_ROW } from "../c
 const links = await getCellLinksInRange(SCRAPE_RANGE_START_ROW, SCRAPE_RANGE_END_ROW);
 const rows = [...links.keys()].sort((a, b) => b - a);
 
-const browser = await chromium.launch({ headless: false });
+const browser = await chromium.launch({ headless: false, args: ["--mute-audio"] });
 const context = await browser.newContext(
   existsSync(SESSION_PATH) ? { storageState: SESSION_PATH } : {},
 );
@@ -48,7 +48,6 @@ for (const row of rows) {
       likes: result.likes,
       comments: result.comments,
       shared: result.shared,
-      reposted: result.reposted,
       saved: result.saved,
     });
   } catch (err) {

@@ -18,7 +18,8 @@ export class VideoPage {
   }
 
   async getStats(): Promise<VideoStats> {
-    await waitForLocator(this.page.locator('[data-e2e="like-count"]').first(), "video page like-count");
+    const found = await waitForLocator(this.page.locator('[data-e2e="like-count"]').first(), "video page like-count");
+    if (!found) return { likes: null, comments: null, shared: null, saved: null };
 
     return {
       likes: await this.readCount("like-count"),

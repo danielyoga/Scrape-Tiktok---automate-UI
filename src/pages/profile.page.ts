@@ -16,7 +16,8 @@ export class ProfilePage {
   /** Reads the Views count from a video's thumbnail card on the profile grid. */
   async getVideoViews(videoId: string): Promise<number | null> {
     const card = this.page.locator(`a[href*="/video/${videoId}"]`).first();
-    await waitForLocator(card, `profile grid card for video ${videoId}`);
+    const found = await waitForLocator(card, `profile grid card for video ${videoId}`);
+    if (!found) return null;
     return parseCount(await card.locator('[data-e2e="video-views"]').textContent());
   }
 }
