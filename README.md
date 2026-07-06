@@ -2,33 +2,66 @@
 
 Scrapes video metrics (views, likes, comments, shares, saves) from TikTok's web UI via Playwright and writes results into a Google Sheet. No TikTok login/account required — runs logged-out and auto-clears TikTok's CAPTCHA when it appears.
 
+This guide assumes no prior setup — follow it top to bottom even if you've never used this project before.
+
 ## Prerequisites
 
-- Node.js 18+
+- [Git](https://git-scm.com/downloads)
+- [Node.js](https://nodejs.org) 18 or newer (includes npm)
 - A Google Cloud service account with the **Google Sheets API** enabled
 - A Google Sheet with a `Link Post` column containing TikTok video URLs (as hyperlinks)
 
+Don't have Git or Node.js yet? The setup script below checks for them and tells you how to install anything missing.
+
+## Getting the code
+
+Clone the repository and move into the project folder:
+
+```bash
+git clone https://github.com/danielyoga/Scrape-Tiktok---automate-UI.git
+cd Scrape-Tiktok---automate-UI
+```
+
 ## Setup
 
-1. Install dependencies:
+Run the setup script from the project root. It detects your OS, checks that Git/Node.js/npm are installed (with install instructions if not), installs the project's dependencies, and downloads the Chromium browser Playwright needs:
 
-   ```bash
-   npm install
-   npx playwright install chromium
-   ```
+```bash
+./setup.sh
+```
 
-2. Create a GCP service account and download its JSON key:
+If it can't run directly, make it executable first:
+
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+The script stops with a clear error message if something is missing or fails — fix the reported issue and re-run it.
+
+### Manual install (alternative to the script)
+
+If you'd rather install things yourself:
+
+```bash
+npm install
+npx playwright install chromium
+```
+
+### Google Sheets credentials
+
+1. Create a GCP service account and download its JSON key:
    - [console.cloud.google.com](https://console.cloud.google.com) → create/select a project.
    - APIs & Services → Library → enable **Google Sheets API**.
    - APIs & Services → Credentials → Create Credentials → **Service Account**.
    - Open the service account → Keys → Add Key → JSON → download.
    - Save the downloaded file as `credentials.json` in the project root (gitignored, treat as a secret).
 
-3. Share the target Google Sheet with the service account:
+2. Share the target Google Sheet with the service account:
    - Copy the service account's email from `credentials.json` (`client_email` field).
    - Open the sheet → Share → add that email as **Editor**.
 
-4. Configure the sheet target and scrape range in [src/config.ts](src/config.ts):
+3. Configure the sheet target and scrape range in [src/config.ts](src/config.ts):
 
    | Constant | What it is | How to find it |
    | --- | --- | --- |
