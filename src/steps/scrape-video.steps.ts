@@ -2,6 +2,7 @@ import type { BrowserContext, Page } from "playwright";
 import { ProfilePage } from "../pages/profile.page.ts";
 import { VideoPage } from "../pages/video.page.ts";
 import { clearCaptchaIfPresent } from "./clear-captcha.steps.ts";
+import { reloadIfErrorPage } from "./reload-on-error.steps.ts";
 import { NAVIGATION_TIMEOUT_MS } from "../config.ts";
 
 export interface VideoMetrics {
@@ -43,11 +44,13 @@ export async function scrapeVideo(page: Page, context: BrowserContext, url: stri
 
   const profilePage = new ProfilePage(page);
   await timed("profile load", () => profilePage.open(username));
+  await reloadIfErrorPage(page);
   await clearCaptchaIfPresent(page, context);
   const views = await timed("read views", () => profilePage.getVideoViews(videoId));
 
   const videoPage = new VideoPage(page);
   await timed("video load", () => videoPage.open(resolvedUrl));
+  await reloadIfErrorPage(page);
   await clearCaptchaIfPresent(page, context);
   const stats = await timed("read stats", () => videoPage.getStats());
 
