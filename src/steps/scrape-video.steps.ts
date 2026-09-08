@@ -3,6 +3,7 @@ import { ProfilePage } from "../pages/profile.page.ts";
 import { VideoPage } from "../pages/video.page.ts";
 import { clearCaptchaIfPresent } from "./clear-captcha.steps.ts";
 import { reloadIfErrorPage } from "./reload-on-error.steps.ts";
+import { gotoWithRetry } from "../utils/retry-navigation.ts";
 import { NAVIGATION_TIMEOUT_MS } from "../config.ts";
 
 export interface VideoMetrics {
@@ -27,7 +28,8 @@ const SHORT_LINK_PATTERN = /^https?:\/\/(vt|vm)\.tiktok\.com\//;
 /** Short links (vt.tiktok.com/vm.tiktok.com) redirect to the canonical /@user/video/id URL. */
 async function resolveShortLink(page: Page, url: string): Promise<string> {
   if (!SHORT_LINK_PATTERN.test(url)) return url;
-  await page.goto(url, { waitUntil: "domcontentloaded", timeout: NAVIGATION_TIMEOUT_MS });
+  const ok = await gotoWithRetry(page, url, { waitUntil: "domcontentloaded", timeout: NAVIGATION_TIMEOUT_MS });
+  if (!ok) throw new Error(`Skipped: could not resolve short link ${url}`);
   return page.url();
 }
 

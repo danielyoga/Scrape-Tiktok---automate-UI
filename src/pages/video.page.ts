@@ -1,6 +1,7 @@
 import type { Page } from "playwright";
 import { parseCount } from "../utils/parse-count.ts";
 import { waitForLocator } from "../utils/wait-with-prompt.ts";
+import { gotoWithRetry } from "../utils/retry-navigation.ts";
 import { NAVIGATION_TIMEOUT_MS } from "../config.ts";
 
 export interface VideoStats {
@@ -14,7 +15,8 @@ export class VideoPage {
   constructor(private readonly page: Page) {}
 
   async open(url: string) {
-    await this.page.goto(url, { waitUntil: "domcontentloaded", timeout: NAVIGATION_TIMEOUT_MS });
+    const ok = await gotoWithRetry(this.page, url, { waitUntil: "domcontentloaded", timeout: NAVIGATION_TIMEOUT_MS });
+    if (!ok) throw new Error(`Skipped: could not open video page ${url}`);
   }
 
   async getStats(): Promise<VideoStats> {
